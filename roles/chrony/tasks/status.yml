@@ -1,0 +1,19 @@
+---
+# status file for revboot.regional.chrony
+# See https://manpages.ubuntu.com/manpages/jammy/en/man1/chronyc.1.html
+
+- name: "Get chronyc status"
+  ansible.builtin.command:
+    cmd: 'chronyc tracking'
+  register: __chrony_chronyc_tracking
+  no_log: true
+  changed_when: false
+  failed_when: false
+
+- name: "Print results for chronyc"
+  ansible.builtin.debug:
+    var: __chrony_chronyc_tracking.stdout_lines
+    verbosity: 0
+  when:
+    - __chrony_chronyc_tracking.stdout_lines is defined
+    - __chrony_chronyc_tracking.stdout_lines | length > 0

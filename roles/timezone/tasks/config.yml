@@ -1,0 +1,51 @@
+---
+# config file for revboot.regional.timezone
+# See https://docs.ansible.com/ansible/latest/collections/community/general/timezone_module.html
+# See https://wiki.debian.org/TimeZoneChanges
+# See https://man.omnios.org/man5/TIMEZONE
+# See https://manpages.ubuntu.com/manpages/jammy/man5/localtime.5.html
+# See https://manpages.ubuntu.com/manpages/focal/man1/timedatectl.1.html
+# See https://manpages.ubuntu.com/manpages/jammy/man8/hwclock.8.html
+
+- name: "Set timezone"
+  # NOTE: same as running 'sudo dpkg-reconfigure tzdata'
+  # NOTE: runs 'sudo timedatectl set-timezone'
+  # NOTE: updates file /etc/timezone
+  # NOTE: updates file /etc/localtime
+  community.general.timezone:
+    name: "{{ (timezone_config.area + '/' + timezone_config.zone)
+      | default(omit, true) }}"
+  when:
+    - timezone_config.area is defined
+    - timezone_config.area | length > 0
+    - timezone_config.zone is defined
+    - timezone_config.zone | length > 0
+
+- name: "Set hardware clock"
+  # NOTE: same as running 'sudo dpkg-reconfigure tzdata'
+  # NOTE: runs 'sudo timedatectl set-local-rtc'
+  # NOTE: updates hardware clock
+  # NOTE: updates file /etc/adjtime
+  community.general.timezone:
+    hwclock: "{{ timezone_config.rtc
+      | ansible.builtin.ternary('local', 'UTC') }}"
+  when:
+    - timezone_config.rtc is defined
+    - timezone_config.rtc | string | length > 0
+
+- name: "Set ntp mode"
+  ansible.builtin.command:
+    cmd: "timedatectl set-ntp {{ timezone_config.ntp }}"
+  register: __timezone_timedatectl_setntp
+  changed_when: __timezone_timedatectl_setntp.rc == 0
+  failed_when: __timezone_timedatectl_setntp.rc != 0
+  when:
+    - timezone_config.ntp is defined
+    - timezone_config.ntp | string | length > 0
+
+- name: "Synchronize the hardware clock from the system clock"
+  ansible.builtin.command:
+    cmd: "hwclock --systohc"
+  register: __timezone_hwclock_systohc
+  changed_when: __timezone_hwclock_systohc.rc == 0
+  failed_when: __timezone_hwclock_systohc.rc != 0

@@ -1,0 +1,6 @@
+---
+# Debian file for revboot.regional.locale
+
+# packages to install
+locale_packages_install:
+  - 'locales'

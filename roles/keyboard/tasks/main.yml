@@ -1,0 +1,20 @@
+---
+# tasks file for revboot.regional.keyboard
+
+- name: "Load facts"
+  ansible.builtin.include_tasks: 'facts.yml'
+
+- name: "Assert variables"
+  ansible.builtin.include_tasks: 'assert.yml'
+
+- name: "Install packages"
+  ansible.builtin.include_tasks: 'install.yml'
+
+- name: "Apply debconf"
+  ansible.builtin.include_tasks: 'debconf.yml'
+
+- name: "Apply configuration"
+  ansible.builtin.include_tasks: 'config.yml'
+
+- name: "Check status"
+  ansible.builtin.include_tasks: 'status.yml'

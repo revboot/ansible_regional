@@ -1,0 +1,7 @@
+---
+# install file for revboot.regional.locale
+
+- name: "Install locale packages"
+  ansible.builtin.apt:
+    name: "{{ locale_packages_install }}"
+    state: 'present'

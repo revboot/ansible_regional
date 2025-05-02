@@ -1,0 +1,50 @@
+---
+# assert file for revboot.regional.chrony
+
+- name: "Assert default sources variable | enabled"
+  ansible.builtin.assert:
+    that:
+      - chrony_sources_default.enabled is boolean
+  when:
+    - chrony_sources_default.enabled is defined
+    - chrony_sources_default.enabled | string | length > 0
+
+- name: "Assert default sources variable | comment"
+  ansible.builtin.assert:
+    that:
+      - chrony_sources_default.comment is string
+  when:
+    - chrony_sources_default.comment is defined
+    - chrony_sources_default.comment | length > 0
+
+- name: "Assert default sources variable | type"
+  ansible.builtin.assert:
+    that:
+      - chrony_sources_default.type is string
+  when:
+    - chrony_sources_default.type is defined
+    - chrony_sources_default.type | length > 0
+
+- name: "Assert default sources variable | address"
+  ansible.builtin.assert:
+    that:
+      - chrony_sources_default.address is string
+  when:
+    - chrony_sources_default.address is defined
+    - chrony_sources_default.address | length > 0
+
+- name: "Assert default sources variable | args"
+  ansible.builtin.assert:
+    that:
+      - chrony_sources_default.args is string
+  when:
+    - chrony_sources_default.args is defined
+    - chrony_sources_default.args | length > 0
+
+- name: "Assert additional sources variable"
+  ansible.builtin.assert:
+    that:
+      - chrony_sources_additional is iterable
+  when:
+    - chrony_sources_additional is defined
+    - chrony_sources_additional | length > 0

@@ -1,0 +1,7 @@
+---
+# install file for revboot.regional.timezone
+
+- name: "Install timezone packages"
+  ansible.builtin.apt:
+    name: "{{ timezone_packages_install }}"
+    state: 'present'

@@ -1,0 +1,37 @@
+---
+# config file for revboot.regional.locale
+# See https://docs.ansible.com/ansible/latest/collections/community/general/locale_gen_module.html
+# See https://forum.ansible.com/t/ansible-ubuntu-locale-keyboard-configuration/786/6
+# See https://wiki.debian.org/Locale
+# See https://manpages.ubuntu.com/manpages/jammy/en/man5/locale.conf.5.html
+# See https://manpages.ubuntu.com/manpages/jammy/en/man5/locale.gen.5.html
+# See https://manpages.ubuntu.com/manpages/jammy/en/man8/update-locale.8.html
+# See https://manpages.ubuntu.com/manpages/jammy/en/man1/localectl.1.html
+
+- name: "Generate locales"
+  # NOTE: same as running 'sudo dpkg-reconfigure locales'
+  # NOTE: runs 'sudo locale-gen'
+  # NOTE: updates file /etc/locale.gen
+  community.general.locale_gen:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present', true) }}"
+  loop: "{{ locale_config_generated | list }}"
+  loop_control:
+    label: "{{ item.name }}"
+  when:
+    - locale_config_generated is defined
+    - locale_config_generated | length > 0
+  failed_when: item.name | length == 0
+
+- name: "Set default locale"
+  # NOTE: same as running 'sudo dpkg-reconfigure locales'
+  # NOTE: same as running 'sudo update-locale'
+  # NOTE: updates file /etc/default/locale
+  ansible.builtin.command:
+    cmd: "localectl set-locale LANG={{ locale_config_default }}"
+  register: __locale_localectl_setlocale
+  changed_when: __locale_localectl_setlocale.rc == 0
+  failed_when: __locale_localectl_setlocale.rc != 0
+  when:
+    - locale_config_default is defined
+    - locale_config_default | length > 0

@@ -1,0 +1,27 @@
+---
+# debconf file for revboot.regional.timezone
+
+- name: "Debconf tzdata | area"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure tzdata'
+  ansible.builtin.debconf:
+    name: 'tzdata'
+    question: 'tzdata/Areas'
+    value: "{{ timezone_config.area }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure tzdata package'
+  when:
+    - timezone_config.area is defined
+
+- name: "Debconf tzdata | zone"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure tzdata'
+  ansible.builtin.debconf:
+    name: 'tzdata'
+    question: "tzdata/Zones/{{ timezone_config.area }}"
+    value: "{{ timezone_config.zone }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure tzdata package'
+  when:
+    - timezone_config.area is defined
+    - timezone_config.zone is defined

@@ -1,0 +1,42 @@
+---
+# assert file for revboot.regional.keyboard
+
+- name: "Assert keyboard model variable"
+  ansible.builtin.assert:
+    that:
+      - keyboard_config.model is string
+  when:
+    - keyboard_config.model is defined
+    - keyboard_config.model | length > 0
+
+- name: "Assert keyboard layout variable"
+  ansible.builtin.assert:
+    that:
+      - keyboard_config.layout is string
+  when:
+    - keyboard_config.layout is defined
+    - keyboard_config.layout | length > 0
+
+- name: "Assert keyboard variant variable"
+  ansible.builtin.assert:
+    that:
+      - keyboard_config.variant is string
+  when:
+    - keyboard_config.variant is defined
+    - keyboard_config.variant | length > 0
+
+- name: "Assert keyboard options variable"
+  ansible.builtin.assert:
+    that:
+      - keyboard_config.options is string
+  when:
+    - keyboard_config.options is defined
+    - keyboard_config.options | length > 0
+
+- name: "Assert keyboard backspace variable"
+  ansible.builtin.assert:
+    that:
+      - keyboard_config.backspace is string
+  when:
+    - keyboard_config.backspace is defined
+    - keyboard_config.backspace | length > 0

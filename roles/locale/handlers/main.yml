@@ -1,0 +1,9 @@
+---
+# handlers file for revboot.regional.locale
+
+- name: "Reconfigure locales package"
+  ansible.builtin.command:
+    cmd: 'dpkg-reconfigure -f noninteractive locales'
+  register: __locale_dpkg_reconfigure
+  changed_when: __locale_dpkg_reconfigure.rc == 0
+  failed_when: __locale_dpkg_reconfigure.rc != 0

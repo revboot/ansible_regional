@@ -1,0 +1,27 @@
+---
+argument_specs:
+  main:
+    short_description: 'Timezone variables.'
+    version_added: '1.0.0'
+    options:
+      timezone_config:
+        description: 'Timezone configuration.'
+        type: 'dict'
+        required: true
+        options:
+          area:
+            description: 'Geographic area.'
+            type: 'str'
+            required: true
+          zone:
+            description: 'Timezone or city.'
+            type: 'str'
+            required: true
+          ntp:
+            description: 'NTP synchronization enabled?.'
+            type: 'bool'
+            required: true
+          rtc:
+            description: 'RTC in local time?.'
+            type: 'bool'
+            required: true

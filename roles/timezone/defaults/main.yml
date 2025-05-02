@@ -1,0 +1,18 @@
+---
+# defaults file for revboot.regional.timezone
+
+# require root privileges (boolean)
+ansible_become: true # noqa: var-naming[no-role-prefix]
+
+# configuration to apply
+# See https://docs.ansible.com/ansible/latest/collections/community/general/timezone_module.html
+# See https://manpages.ubuntu.com/manpages/focal/man1/timedatectl.1.html
+timezone_config:
+  # geographic area (string)
+  area: 'Etc'
+  # timezone or city (string)
+  zone: 'UTC'
+  # NTP synchronization enabled? (boolean)
+  ntp: true
+  # RTC in local time? (boolean)
+  rtc: false

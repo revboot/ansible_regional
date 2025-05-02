@@ -1,0 +1,27 @@
+---
+# debconf file for revboot.regional.locale
+
+- name: "Debconf locales | generated locales"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure locales'
+  ansible.builtin.debconf:
+    name: 'locales'
+    question: 'locales/locales_to_be_generated'
+    value: "{{ locale_config_generated | map(attribute='name')
+      | join(' UTF-8, ') + ' UTF-8' }}"
+    vtype: 'multiselect'
+  notify:
+    - 'Reconfigure locales package'
+  when:
+    - locale_config_generated is defined
+
+- name: "Debconf locales | default locale"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure locales'
+  ansible.builtin.debconf:
+    name: 'locales'
+    question: 'locales/default_environment_locale'
+    value: "{{ locale_config_default }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure locales package'
+  when:
+    - locale_config_default is defined

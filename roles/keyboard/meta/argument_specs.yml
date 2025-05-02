@@ -1,0 +1,31 @@
+---
+argument_specs:
+  main:
+    short_description: 'Keyboard variables.'
+    version_added: '1.0.0'
+    options:
+      keyboard_config:
+        description: 'Keyboard configuration.'
+        type: 'dict'
+        required: true
+        options:
+          model:
+            description: 'Keyboard model.'
+            type: 'str'
+            required: true
+          layout:
+            description: 'Keyboard layout.'
+            type: 'str'
+            required: true
+          variant:
+            description: 'Keyboard variant.'
+            type: 'str'
+            required: true
+          options:
+            description: 'Keyboard options.'
+            type: 'str'
+            required: true
+          backspace:
+            description: 'Keyboard backspace mode.'
+            type: 'str'
+            required: true

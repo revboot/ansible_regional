@@ -1,0 +1,8 @@
+---
+# Debian file for revboot.regional.keyboard
+
+# packages to install
+keyboard_packages_install:
+  - 'keyboard-configuration'
+  - 'console-setup'
+  - 'locales'

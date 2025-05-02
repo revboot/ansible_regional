@@ -1,0 +1,41 @@
+---
+# defaults file for revboot.regional.chrony
+
+# require root privileges (boolean)
+ansible_become: true # noqa: var-naming[no-role-prefix]
+
+# default source to configure (on file at /etc/chrony/chrony.conf)
+# See https://manpages.ubuntu.com/manpages/jammy/man5/chrony.conf.5.html
+chrony_sources_default:
+  # source enabled? (boolean)
+  enabled: true
+  # comment for source (string)
+  comment: 'Use Debian vendor zone.'
+  # type of source, ie, pool, server or peer (string)
+  type: 'pool'
+  # address for source (string)
+  address: '2.debian.pool.ntp.org'
+  # arguments for source (string)
+  args: 'iburst'
+
+# additional sources to configure (as files in /etc/chrony/sources.d)
+# See https://manpages.ubuntu.com/manpages/jammy/man5/chrony.conf.5.html
+chrony_sources_additional:
+  # example source file (string)
+  - name: 'debian.pool.ntp.org'
+    # source file enabled? (boolean)
+    enabled: false
+    # comment for source file (string)
+    comment: 'Use Debian vendor zone.'
+    # addresses for source (list of dicts)
+    addresses:
+      # example source (string)
+      - name: '2.debian.pool.ntp.org'
+        # comment for source (string)
+        comment: 'Pool with IPv4 and IPv6 servers'
+        # type of source, ie, pool, server or peer (string)
+        type: 'pool'
+        # address for source (string)
+        address: '2.debian.pool.ntp.org'
+        # arguments for source (string)
+        args: 'iburst'

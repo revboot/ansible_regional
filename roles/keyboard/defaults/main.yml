@@ -1,0 +1,19 @@
+---
+# defaults file for revboot.regional.keyboard
+
+# require root privileges (boolean)
+ansible_become: true # noqa: var-naming[no-role-prefix]
+
+# configuration to apply
+# See https://manpages.ubuntu.com/manpages/jammy/man5/keyboard.5.html
+keyboard_config:
+  # model (string)
+  model: 'pc105'
+  # layout (string)
+  layout: 'us'
+  # variant (string)
+  variant: ''
+  # options (string)
+  options: ''
+  # backspace mode (string)
+  backspace: 'guess'

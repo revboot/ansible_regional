@@ -1,0 +1,18 @@
+---
+# assert file for revboot.regional.locale
+
+- name: "Assert generated locales variable"
+  ansible.builtin.assert:
+    that:
+      - locale_config_generated is iterable
+  when:
+    - locale_config_generated is defined
+    - locale_config_generated | length > 0
+
+- name: "Assert default locale variable"
+  ansible.builtin.assert:
+    that:
+      - locale_config_default is string
+  when:
+    - locale_config_default is defined
+    - locale_config_default | length > 0

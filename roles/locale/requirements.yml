@@ -1,0 +1,8 @@
+---
+### Ansible Galaxy dependencies
+roles: []
+collections:
+  # https://galaxy.ansible.com/community/general
+  - name: "community.general"
+    type: "galaxy"
+    version: ">=9.0.0,<10.0.0"

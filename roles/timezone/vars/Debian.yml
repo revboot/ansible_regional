@@ -1,0 +1,7 @@
+---
+# Debian file for revboot.regional.timezone
+
+# packages to install
+timezone_packages_install:
+  - 'tzdata'
+  - 'util-linux-extra'

@@ -1,0 +1,14 @@
+---
+# handlers file for revboot.regional.chrony
+
+- name: "Enable chrony service"
+  ansible.builtin.service:
+    name: 'chrony'
+    state: 'started'
+    enabled: true
+
+- name: "Restart chrony service"
+  # NOTE: chronyd does not support reload
+  ansible.builtin.service:
+    name: 'chrony'
+    state: 'restarted'

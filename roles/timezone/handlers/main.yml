@@ -1,0 +1,9 @@
+---
+# handlers file for revboot.regional.timezone
+
+- name: "Reconfigure tzdata package"
+  ansible.builtin.command:
+    cmd: 'dpkg-reconfigure -f noninteractive tzdata'
+  register: __timezone_dpkg_reconfigure
+  changed_when: __timezone_dpkg_reconfigure.rc == 0
+  failed_when: __timezone_dpkg_reconfigure.rc != 0

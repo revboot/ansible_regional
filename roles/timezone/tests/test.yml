@@ -1,0 +1,6 @@
+---
+- name: 'Test timezone role'
+  hosts: 'localhost'
+  remote_user: 'root'
+  roles:
+    - 'timezone'

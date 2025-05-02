@@ -1,0 +1,17 @@
+{{ ansible_managed | comment }}
+{{ chrony_source.comment | comment('plain', prefix_count=0, postfix_count=0) }}
+{% for chrony_address in chrony_source.addresses %}
+{% if chrony_address.type is defined
+  and chrony_address.type | length > 0
+  and chrony_address.address is defined
+  and chrony_address.address | length > 0 %}
+
+{{ chrony_address.comment | default('Additional source', true)
+  | comment('plain', prefix_count=0, postfix_count=0) }}
+{{ chrony_address.type }} {{ chrony_address.address }}
+{%- if chrony_address.args is defined
+  and chrony_address.args | length > 0 %}
+{{ ' ' + chrony_address.args }}
+{% endif %}
+{% endif %}
+{% endfor %}

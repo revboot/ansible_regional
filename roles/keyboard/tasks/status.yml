@@ -1,0 +1,19 @@
+---
+# status file for revboot.regional.keyboard
+# See https://manpages.ubuntu.com/manpages/jammy/en/man1/localectl.1.html
+
+- name: "Get localectl status"
+  ansible.builtin.command:
+    cmd: 'localectl status'
+  register: __keyboard_localectl_status
+  no_log: true
+  changed_when: false
+  failed_when: false
+
+- name: "Print results for localectl"
+  ansible.builtin.debug:
+    var: __keyboard_localectl_status.stdout_lines
+    verbosity: 0
+  when:
+    - __keyboard_localectl_status.stdout_lines is defined
+    - __keyboard_localectl_status.stdout_lines | length > 0

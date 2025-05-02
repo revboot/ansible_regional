@@ -1,0 +1,9 @@
+---
+# handlers file for revboot.regional.keyboard
+
+- name: "Reconfigure keyboard-configuration package"
+  ansible.builtin.command:
+    cmd: 'dpkg-reconfigure -f noninteractive keyboard-configuration'
+  register: __keyboard_dpkg_reconfigure
+  changed_when: __keyboard_dpkg_reconfigure.rc == 0
+  failed_when: __keyboard_dpkg_reconfigure.rc != 0

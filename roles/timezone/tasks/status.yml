@@ -1,0 +1,19 @@
+---
+# status file for revboot.regional.timezone
+# See https://manpages.ubuntu.com/manpages/focal/man1/timedatectl.1.html
+
+- name: "Get timedatectl status"
+  ansible.builtin.command:
+    cmd: 'timedatectl status'
+  register: __timezone_timedatectl_status
+  no_log: true
+  changed_when: false
+  failed_when: false
+
+- name: "Print results for timedatectl"
+  ansible.builtin.debug:
+    var: __timezone_timedatectl_status.stdout_lines
+    verbosity: 0
+  when:
+    - __timezone_timedatectl_status.stdout_lines is defined
+    - __timezone_timedatectl_status.stdout_lines | length > 0

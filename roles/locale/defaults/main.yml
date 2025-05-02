@@ -1,0 +1,17 @@
+---
+# defaults file for revboot.regional.locale
+
+# require root privileges (boolean)
+ansible_become: true # noqa: var-naming[no-role-prefix]
+
+# default locale (string)
+locale_config_default: 'en_US.UTF-8'
+
+# generated locales (list of dicts)
+# See https://docs.ansible.com/ansible/latest/collections/community/general/locale_gen_module.html
+# See https://manpages.ubuntu.com/manpages/jammy/en/man1/localectl.1.html
+locale_config_generated:
+  # name of locale (string)
+  - name: 'en_US.UTF-8'
+  # state of locale, ie, present or absent (string)
+    state: 'present'

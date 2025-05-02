@@ -1,0 +1,11 @@
+{{ ansible_managed | comment }}
+# KEYBOARD CONFIGURATION FILE
+
+# Consult the keyboard(5) manual page.
+
+XKBMODEL="{{ keyboard_config.model }}"
+XKBLAYOUT="{{ keyboard_config.layout }}"
+XKBVARIANT="{{ keyboard_config.variant }}"
+XKBOPTIONS="{{ keyboard_config.options }}"
+
+BACKSPACE="{{ keyboard_config.backspace }}"

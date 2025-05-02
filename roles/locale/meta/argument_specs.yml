@@ -1,0 +1,14 @@
+---
+argument_specs:
+  main:
+    short_description: 'Locale variables.'
+    version_added: '1.0.0'
+    options:
+      locale_config_generated:
+        description: 'Generated locales.'
+        type: 'list'
+        required: true
+      locale_config_default:
+        description: 'Default locale.'
+        type: 'str'
+        required: true

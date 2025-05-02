@@ -1,0 +1,13 @@
+---
+# Debian file for revboot.regional.chrony
+
+# packages to install
+chrony_packages_install:
+  - 'chrony'
+
+# packages to uninstall
+chrony_packages_uninstall:
+  - 'systemd-timesyncd'
+  - 'openntpd'
+  - 'ntpsec'
+  - 'ntp'

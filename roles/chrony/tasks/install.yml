@@ -1,0 +1,25 @@
+---
+# install file for revboot.regional.chrony
+
+- name: "Install chrony packages"
+  ansible.builtin.apt:
+    name: "{{ chrony_packages_install }}"
+    state: 'present'
+  register: __chrony_apt_install
+  notify:
+    - 'Enable chrony service'
+
+- name: "Uninstall alternative packages"
+  ansible.builtin.apt:
+    name: "{{ chrony_packages_uninstall }}"
+    state: 'absent'
+  register: __chrony_apt_uninstall
+  notify:
+    - 'Enable chrony service'
+
+- name: "Flush handlers"
+  ansible.builtin.meta: flush_handlers
+  when: ( __chrony_apt_install.changed is defined
+      and __chrony_apt_install.changed )
+     or ( __chrony_apt_uninstall.changed is defined
+      and __chrony_apt_uninstall.changed )

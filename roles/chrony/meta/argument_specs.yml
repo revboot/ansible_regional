@@ -1,0 +1,39 @@
+---
+argument_specs:
+  main:
+    short_description: 'Chrony variables.'
+    version_added: '1.0.0'
+    options:
+      chrony_sources_default:
+        description: 'Default source.'
+        type: 'dict'
+        required: true
+        options:
+          enabled:
+            description: 'Enable the default source?.'
+            type: 'bool'
+            required: true
+          comment:
+            description: 'Comment for the default source.'
+            type: 'str'
+            required: true
+          type:
+            description: 'Type of the default source.'
+            type: 'str'
+            required: true
+            choices:
+              - 'server'
+              - 'pool'
+              - 'peer'
+          address:
+            description: 'Address for the default source.'
+            type: 'str'
+            required: true
+          args:
+            description: 'Arguments for the default source.'
+            type: 'str'
+            required: true
+      chrony_sources_additional:
+        description: 'Additional sources.'
+        type: 'list'
+        required: false

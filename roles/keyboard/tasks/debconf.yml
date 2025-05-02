@@ -1,0 +1,74 @@
+---
+# debconf file for revboot.regional.keyboard
+
+- name: "Debconf keyboard-configuration | model"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure keyboard-configuration'
+  ansible.builtin.debconf:
+    name: 'keyboard-configuration'
+    question: 'keyboard-configuration/modelcode'
+    value: "{{ keyboard_config.model }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure keyboard-configuration package'
+  when:
+    - keyboard_config.model is defined
+
+- name: "Debconf keyboard-configuration | layout"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure keyboard-configuration'
+  ansible.builtin.debconf:
+    name: 'keyboard-configuration'
+    question: 'keyboard-configuration/layoutcode'
+    value: "{{ keyboard_config.layout }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure keyboard-configuration package'
+  when:
+    - keyboard_config.layout is defined
+
+- name: "Debconf keyboard-configuration | keymap"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure keyboard-configuration'
+  ansible.builtin.debconf:
+    name: 'keyboard-configuration'
+    question: 'keyboard-configuration/xkb-keymap'
+    value: "{{ keyboard_config.layout }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure keyboard-configuration package'
+  when:
+    - keyboard_config.layout is defined
+
+- name: "Debconf keyboard-configuration | variant"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure keyboard-configuration'
+  ansible.builtin.debconf:
+    name: 'keyboard-configuration'
+    question: 'keyboard-configuration/variantcode'
+    value: "{{ keyboard_config.variant }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure keyboard-configuration package'
+  when:
+    - keyboard_config.variant is defined
+
+- name: "Debconf keyboard-configuration | options"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure keyboard-configuration'
+  ansible.builtin.debconf:
+    name: 'keyboard-configuration'
+    question: 'keyboard-configuration/optionscode'
+    value: "{{ keyboard_config.options }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure keyboard-configuration package'
+  when:
+    - keyboard_config.options is defined
+
+- name: "Debconf keyboard-configuration | backspace"
+  # NOTE: does not need to run 'sudo dpkg-reconfigure keyboard-configuration'
+  ansible.builtin.debconf:
+    name: 'keyboard-configuration'
+    question: 'keyboard-configuration/ctrl_alt_bksp'
+    value: "{{ keyboard_config.backspace }}"
+    vtype: 'select'
+  notify:
+    - 'Reconfigure keyboard-configuration package'
+  when:
+    - keyboard_config.backspace is defined

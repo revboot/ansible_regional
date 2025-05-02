@@ -1,0 +1,63 @@
+---
+# config file for revboot.regional.chrony
+# See https://pve.proxmox.com/wiki/Time_Synchronization
+# See https://manpages.ubuntu.com/manpages/jammy/man5/chrony.conf.5.html
+# See https://chrony-project.org/doc/4.6.1/chrony.conf.html
+# See https://chrony-project.org/doc/4.6.1/chronyd.html
+
+- name: "Template chrony configuration file"
+  ansible.builtin.template:
+    src: 'etc-chrony-chrony.conf.j2'
+    dest: '/etc/chrony/chrony.conf'
+    owner: 'root'
+    group: 'root'
+    mode: 'u=rw,go=r'
+    force: true
+  register: __chrony_template_chrony
+  notify:
+    - 'Restart chrony service'
+
+- name: "Touch/Delete additional sources files"
+  ansible.builtin.file:
+    path: "/etc/chrony/sources.d/{{ item.name }}.sources"
+    owner: 'root'
+    group: 'root'
+    mode: 'u=rw,go=r'
+    state: "{{ item.enabled | ansible.builtin.ternary('touch', 'absent') }}"
+    modification_time: 'preserve'
+    access_time: 'preserve'
+  loop: "{{ chrony_sources_additional }}"
+  loop_control:
+    label: "{{ item.name }}"
+  register: __chrony_file_sources
+  notify:
+    - 'Restart chrony service'
+
+- name: "Template additional sources files"
+  ansible.builtin.template:
+    src: 'etc-chrony-sources.d-item.sources.j2'
+    dest: "/etc/chrony/sources.d/{{ item.name }}.sources"
+    owner: 'root'
+    group: 'root'
+    mode: 'u=rw,go=r'
+    force: true
+  loop: "{{ chrony_sources_additional }}"
+  loop_control:
+    label: "{{ item.name }}"
+  vars:
+    chrony_source: "{{ item }}"
+  register: __chrony_template_sources
+  notify:
+    - 'Restart chrony service'
+  when:
+    - item.enabled is defined
+    - item.enabled
+
+- name: "Flush handlers"
+  ansible.builtin.meta: flush_handlers
+  when: ( __chrony_template_chrony.changed is defined
+      and __chrony_template_chrony.changed )
+     or ( __chrony_file_sources.changed is defined
+      and __chrony_file_sources.changed )
+     or ( __chrony_template_sources.changed is defined
+      and __chrony_template_sources.changed )

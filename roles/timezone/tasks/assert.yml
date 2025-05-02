@@ -1,0 +1,34 @@
+---
+# assert file for revboot.regional.timezone
+
+- name: "Assert area variable"
+  ansible.builtin.assert:
+    that:
+      - timezone_config.area is string
+  when:
+    - timezone_config.area is defined
+    - timezone_config.area | length > 0
+
+- name: "Assert zone variable"
+  ansible.builtin.assert:
+    that:
+      - timezone_config.zone is string
+  when:
+    - timezone_config.zone is defined
+    - timezone_config.zone | length > 0
+
+- name: "Assert ntp variable"
+  ansible.builtin.assert:
+    that:
+      - timezone_config.ntp is boolean
+  when:
+    - timezone_config.ntp is defined
+    - timezone_config.ntp | string | length > 0
+
+- name: "Assert rtc variable"
+  ansible.builtin.assert:
+    that:
+      - timezone_config.rtc is boolean
+  when:
+    - timezone_config.rtc is defined
+    - timezone_config.rtc | string | length > 0

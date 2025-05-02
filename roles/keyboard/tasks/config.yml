@@ -1,0 +1,23 @@
+---
+# config file for revboot.regional.keyboard
+# See https://github.com/gantsign/ansible-role-keyboard
+# See https://wiki.debian.org/Keyboard
+# See https://manpages.ubuntu.com/manpages/jammy/man5/keyboard.5.html
+
+- name: "Template configuration file"
+  ansible.builtin.template:
+    src: 'etc-default-keyboard.j2'
+    dest: '/etc/default/keyboard'
+    force: true
+    owner: 'root'
+    group: 'root'
+    mode: 'u=rw,go=r'
+  register: __keyboard_template
+  notify:
+    - 'Reconfigure keyboard-configuration package'
+
+- name: "Flush handlers"
+  ansible.builtin.meta: flush_handlers
+  when:
+    - __keyboard_template.changed is defined
+    - __keyboard_template.changed

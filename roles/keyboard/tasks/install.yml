@@ -1,0 +1,7 @@
+---
+# install file for revboot.regional.keyboard
+
+- name: "Install keyboard packages"
+  ansible.builtin.apt:
+    name: "{{ keyboard_packages_install }}"
+    state: 'present'
