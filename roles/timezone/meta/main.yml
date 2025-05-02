@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   role_name: 'timezone'
-  author: 'Luís Algarvio <luis.algarvio@revboot.com> https://github.com/lpalgarvio'
+  author: 'Luís Algarvio <luis.algarvio@revboot.com> (https://github.com/lpalgarvio)'
   description: 'Handles Regional Timezone configuration.'
   company: 'Revboot - Tecnologias de Informação e Comunicação, Lda.'
 

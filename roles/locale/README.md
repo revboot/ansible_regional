@@ -51,6 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Author Information
 ------------------
 
-Maintainer: Luís Algarvio <luis.algarvio@revboot.com> https://github.com/lpalgarvio
+Maintainer: Luís Algarvio <luis.algarvio@revboot.com> (https://github.com/lpalgarvio)
 
 Copyright Revboot - Tecnologias de Informação e Comunicação, Lda.
